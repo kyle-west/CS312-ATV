@@ -1,87 +1,51 @@
 <html>
-<head>
-	<title>All-West ATV</title>
-	<style>
-	body { margin: 0; }
-	canvas { width: 100%; height: 100% }
-	</style>
-</head>
-<body>
+	<head>
+		<title>All-West ATV</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			canvas {
+				width: 100%;
+				height: 100%
+			}
+		</style>
 
-	<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
-	<script src="js/three.min.js"></script>
-	<script src="js/OrbitControls.js"></script>
+		<!-- renderer, engines, and controls -->
+		<script src="js/three.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/physi/physi.js"></script>
 
-	<script>
-	var scene, camera, renderer;
-	var geometry, material, mesh;
-	var rotation = 0;
+		<!-- terrain generation -->
+		<script src="js/terrain.js"></script>
+		<script src="js/physi/simple_noise.js"></script>
 
-	init();
-	animate();
+		<!-- props and misc. -->
+		<script src="js/props.js"></script>
+		<script src="js/scene.js"></script>
+		<script src="js/Utils.js"></script>
+	</head>
+	<body>
 
-	function init() {
+		<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
 
-		// Create the main scene for the 3D drawing
-		scene = new THREE.Scene();
-		scene.background = new THREE.Color( 0xaaaaff );
+		<script>
+			var scene, camera, renderer;
+			var geometry, material, mesh;
+			var rotation = 0;
+			var textures = "./textures/"; // textures directory
 
+			init();
+			animate();
 
-		var front_light = new THREE.DirectionalLight( 0x888888 );
-		front_light.position.set( 0, 100, 100 ).normalize();
-		scene.add(front_light);
+			// This is the game/animation loop
+			function animate() {
+				scene.simulate();
+				renderer.render( scene, camera );
 
-		var light = new THREE.AmbientLight( 0xffffff);
-		scene.add(light);
-		// Every scene needs a camera
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-		camera.position.z = 100;
-		camera.position.y = 50;
-		camera.position.x = 100;
+				requestAnimationFrame( animate );
+			}
+		</script>
 
-	   controls = new THREE.OrbitControls( camera );
-		controls.target.set(0,0,0);
-
-		// Allows us to see the axis - you can remove it if you want
-		axis = new THREE.AxisHelper( 50 );
-		axis.position.set( 0,0,0 );
-		scene.add( axis );
-
-		// Add objects into the scene
-		floor_geometry = new THREE.BoxGeometry( 10000, .5, 10000);
-		var grass = THREE.ImageUtils.loadTexture('textures/grass_simple.jpg');
-		grass.wrapS = grass.wrapT = THREE.RepeatWrapping;
-		grass.repeat.set( 200, 200 );
-		var floor_material = new THREE.MeshPhongMaterial({
-			map: grass
-		});
-		floor = new THREE.Mesh(floor_geometry, floor_material);
-		floor.position.y = -1;
-		scene.add(floor);
-
-		// the renderer renders the scene using the objects, lights and camera
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		// Attach the threeJS renderer to the HTML page
-		document.body.appendChild( renderer.domElement );
-
-	}
-
-	// This is the game/animation loop
-	function animate() {
-
-		requestAnimationFrame( animate );
-
-		rotation += 0.005;
-		//camera.position.y = 50;
-		// camera.position.x = Math.sin(rotation) * 125;
-		// camera.position.z = Math.cos(rotation) * 125;
-		//camera.lookAt( axis.position );
-
-		renderer.render( scene, camera );
-	}
-
-</script>
-
-</body>
+	</body>
 </html>
