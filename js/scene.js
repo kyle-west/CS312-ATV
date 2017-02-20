@@ -19,7 +19,7 @@ function init() {
    scene.add( axis );
 
    // scene ground
-   var grass = new THREE.TextureLoader().load(textures+'grass_simple.jpg');
+   var grass = new THREE.TextureLoader().load(textures+'dirt1.jpg');
    grass.wrapS = grass.wrapT = THREE.RepeatWrapping;
    grass.repeat.set( 500, 500 );
    var floor_material = new THREE.MeshPhongMaterial({map: grass });
