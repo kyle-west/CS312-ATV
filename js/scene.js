@@ -28,9 +28,12 @@ function init() {
    scene.add(floor);
 
    // falling block
-   object = new Crate(new Position(25,150,10),null,10,textures+'crate_metal.jpg');
-   object.rotation.x = Math.PI/2;
-   scene.add(object);
+   // object = new Crate(new Position(25,150,10),null,10,textures+'crate_metal.jpg');
+   // object.rotation.x = Math.PI/2;
+   // scene.add(object);
+
+   // player
+   new Player(scene,camera);
 
    // the renderer renders the scene using the objects, lights and camera
    renderer = new THREE.WebGLRenderer();
@@ -68,7 +71,9 @@ function cameraSetup() {
    this.camera.position.z = 100;
    this.camera.position.y = 50;
    this.camera.position.x = 100;
-   controls = new THREE.OrbitControls( this.camera );
-   controls.target.set(0,0,0);
+   if (_MODE_ == DEV) {
+      controls = new THREE.OrbitControls( this.camera );
+      controls.target.set(0,0,0);
+   }
    return this.camera;
 }

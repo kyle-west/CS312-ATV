@@ -21,6 +21,7 @@
 		<script src="js/physi/simple_noise.js"></script>
 
 		<!-- props and misc. -->
+		<script src="js/player.js"></script>
 		<script src="js/props.js"></script>
 		<script src="js/scene.js"></script>
 		<script src="js/Utils.js"></script>
@@ -34,6 +35,13 @@
 			var geometry, material, mesh;
 			var rotation = 0;
 			var textures = "./textures/"; // textures directory
+
+			var _MODE_;
+			const DEV  = 1;
+			const GAME = 0;
+
+			_MODE_ = DEV;
+			// _MODE_ = GAME;
 
 			init();
 			animate();
