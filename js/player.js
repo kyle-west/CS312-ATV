@@ -59,7 +59,7 @@ function Player(scene, camera) {
          document.addEventListener('keydown', function( ev ) {
             switch ( ev.keyCode ) {
                case 37: // left
-               input.direction = 1*s;
+               input.direction = 1;
                break;
 
                case 38: // forward
@@ -67,7 +67,7 @@ function Player(scene, camera) {
                break;
 
                case 39: // right
-               input.direction = -1*s;
+               input.direction = -1;
                break;
 
                case 40: // back
@@ -96,6 +96,34 @@ function Player(scene, camera) {
          });
       });
    });
+
+   scene.addEventListener(
+			'update',
+			function() {
+
+				if ( input && vehicle ) {
+					if ( input.direction !== null ) {
+						input.steering += input.direction / 50;
+						if ( input.steering < -.6 ) input.steering = -.6;
+						if ( input.steering > .6 ) input.steering = .6;
+					}
+					vehicle.setSteering( input.steering, 0 );
+					vehicle.setSteering( input.steering, 1 );
+
+					if ( input.power === true ) {
+						vehicle.applyEngineForce( 3000 );
+					} else if ( input.power === false ) {
+						vehicle.setBrake( 20, 2 );
+						vehicle.setBrake( 20, 3 );
+					} else {
+						vehicle.applyEngineForce( 0 );
+					}
+				}
+
+				scene.simulate( undefined, 2 );
+				physics_stats.update();
+			}
+		);
 }
 
 Player.prototype = {

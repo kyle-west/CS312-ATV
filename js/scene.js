@@ -7,7 +7,7 @@ function init() {
    Physijs.scripts.ammo =   '../physi/ammo.js';
    scene = new Physijs.Scene;
    scene.background = new THREE.Color( 0xaaaaff );
-   scene.setGravity(new THREE.Vector3(0, -90 ,0));
+   scene.setGravity(new THREE.Vector3(0, -180 ,0));
 
    lights(scene);
    camera = cameraSetup();
@@ -24,7 +24,7 @@ function init() {
    grass.repeat.set( 500, 500 );
    var floor_material = new THREE.MeshPhongMaterial({
       map: grass,
-      side: THREE.DoubleSide 
+      side: THREE.DoubleSide
    });
    floor = new Terrain(floor_material).getBumpy(); // random terrain
    floor.position.y = -1;
