@@ -22,7 +22,7 @@ Terrain.prototype = {
 		);
       this.terrain.rotation.x = (Math.PI / 2) * 3;
       this.terrain.receiveShadow = true;
-      // this.scale.set(12,6,1);
+      this.terrain.castShadow = true;
       return this.terrain;
    },
    getFlat : function () {

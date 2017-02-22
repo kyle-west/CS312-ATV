@@ -22,7 +22,10 @@ function init() {
    var grass = new THREE.TextureLoader().load(textures+'dirt1.jpg');
    grass.wrapS = grass.wrapT = THREE.RepeatWrapping;
    grass.repeat.set( 500, 500 );
-   var floor_material = new THREE.MeshPhongMaterial({map: grass });
+   var floor_material = new THREE.MeshPhongMaterial({
+      map: grass,
+      side: THREE.DoubleSide 
+   });
    floor = new Terrain(floor_material).getBumpy(); // random terrain
    floor.position.y = -1;
    scene.add(floor);
