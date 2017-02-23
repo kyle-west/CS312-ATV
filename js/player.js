@@ -1,9 +1,9 @@
 // player object
 function Player(scene, camera) {
-   var player = new THREE.JSONLoader();
+   player = new THREE.JSONLoader();
    player.load( "models/mustang.json", function( car, car_materials ) {
       player.load( "models/mustang_wheel.json", function( wheel, wheel_materials ) {
-         var mesh = new Physijs.BoxMesh(
+         mesh = new Physijs.BoxMesh(
             car,
             new THREE.MeshFaceMaterial( car_materials )
          );

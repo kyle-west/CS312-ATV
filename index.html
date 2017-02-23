@@ -15,6 +15,8 @@
 		<script src="js/three.min.js"></script>
 		<script src="js/OrbitControls.js"></script>
 		<script src="js/physi/physi.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/particles.js"></script>
 
 		<!-- terrain generation -->
 		<script src="js/terrain.js"></script>
@@ -35,6 +37,12 @@
 			var geometry, material, mesh;
 			var rotation = 0;
 			var textures = "./textures/"; // textures directory
+			var particleSystem;
+			var worldWeather = "snow";
+			var wind = new THREE.Vector3(0,0,0);
+			var clock, delaTime;
+			var pPos = new THREE.Vector3(0,0,0);
+			var player;
 
 			var _MODE_;
 			const DEV  = 1;
@@ -48,9 +56,12 @@
 
 			// This is the game/animation loop
 			function animate() {
+				deltaTime = clock.getDelta();
 				scene.simulate();
 				renderer.render( scene, camera );
-
+				wind = new THREE.Vector3(params.WEwind,0,params.NSwind);
+				if (mesh)pPos = mesh.position;
+				animateParticles(particleSystem,deltaTime,wind, pPos);
 				requestAnimationFrame( animate );
 			}
 		</script>
