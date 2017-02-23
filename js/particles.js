@@ -27,7 +27,7 @@ var weathertypes;
 var condArr;
 // what is the weather currently?
 var currentWeather;
-var parRange = 1000;
+var parRange = 5000;
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -62,9 +62,9 @@ function createParticleSystem(winWidth,winHeight,condition,numParticles = 500) {
     for (var p = 0; p < particleCount; p++) {
 
         // This will create all the vertices in a range of -200 to 200 in all directions
-        var x = Math.random() * parRange - parRange;//- 200;
-        var y = Math.random() * parRange - parRange;//- 200;
-        var z = Math.random() * parRange - parRange;//- 200;
+        var x = Math.random() * (parRange*2) - parRange;//- 200;
+        var y = Math.random() * (parRange*2) - parRange;//- 200;
+        var z = Math.random() * (parRange*2) - parRange;//- 200;
 
         // Create the vertex
         var particle = new THREE.Vector3(x, y, z);
