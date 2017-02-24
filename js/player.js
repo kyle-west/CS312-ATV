@@ -32,7 +32,12 @@ function Player(scene, camera) {
          window.vehicle = vehicle;
          window.scene = scene;
 
-         var wheel_material = new THREE.MeshFaceMaterial( wheel_materials );
+         
+         var wheel_material = Physijs.createMaterial(
+            new THREE.MeshFaceMaterial( wheel_materials ),
+            friction,
+            restitution
+         );
          for ( var i = 0; i < 4; i++ ) {
             vehicle.addWheel(
                wheel,

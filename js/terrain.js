@@ -1,5 +1,9 @@
 function Terrain(material) {
-   this.mat = material;
+   this.mat = Physijs.createMaterial(
+      material,
+      friction,
+      restitution
+   );
 }
 
 Terrain.prototype = {
