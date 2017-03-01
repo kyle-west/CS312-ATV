@@ -11,6 +11,7 @@ function Player(scene, camera) {
          mesh.castShadow = mesh.receiveShadow = true;
          var s = 10; // scale
          mesh.scale.set(s,s,s);
+         mesh.mass = 50;
 
          if (_MODE_ == GAME) {
             camera.position.x = 0;
@@ -32,7 +33,7 @@ function Player(scene, camera) {
          window.vehicle = vehicle;
          window.scene = scene;
 
-         
+
          var wheel_material = Physijs.createMaterial(
             new THREE.MeshFaceMaterial( wheel_materials ),
             friction,

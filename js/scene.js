@@ -7,6 +7,7 @@ function init() {
    Physijs.scripts.worker = 'js/physi/physijs_worker.js';
    Physijs.scripts.ammo =   '../physi/ammo.js';
    scene = new Physijs.Scene;
+
    scene.background = new THREE.Color( 0xaaaaff );
    scene.setGravity(new THREE.Vector3(0, -180 ,0));
 
@@ -20,12 +21,14 @@ function init() {
    scene.add( axis );
 
    // scene ground
-   var grass = new THREE.TextureLoader().load(textures+'dirt1.jpg');
-   grass.wrapS = grass.wrapT = THREE.RepeatWrapping;
-   grass.repeat.set( 500, 500 );
+   var ground = new THREE.TextureLoader().load(textures+'dirt1.jpg');
+   ground.wrapS = ground.wrapT = THREE.RepeatWrapping;
+   ground.repeat.set( 500, 500 );
+   ground.anisotropy = 1;
    var floor_material = new THREE.MeshPhongMaterial({
-      map: grass,
+      map: ground,
       side: THREE.DoubleSide
+      // wireframe:true
    });
    floor = new Terrain(floor_material).getBumpy(); // random terrain
    floor.position.y = -1;

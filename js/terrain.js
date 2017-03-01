@@ -20,7 +20,7 @@ Terrain.prototype = {
       this.terrain = new Physijs.HeightfieldMesh(
 			this.geo,
 			this.mat,
-			0, // mass
+			0, // 0 mass makes immovable
 			50,
 			50
 		);
