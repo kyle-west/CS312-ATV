@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Babylon.js sample code</title>
+        <!-- Babylon.js -->
+        <script src="js/babylon.full.js"></script>
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <div id="canvasZone">
+        <canvas id="renderCanvas"></canvas>
+    </div>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var createScene = function () {
+
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+
+            // This creates and positions a free camera (non-mesh)
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+            camera.setTarget(BABYLON.Vector3.Zero()); // This targets the camera to scene origin
+            camera.attachControl(canvas, true); // This attaches the camera to the canvas
+
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+				light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
+
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            // var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+            var ground = BABYLON.Mesh.CreateGroundFromHeightMap(
+					"ground", "assets/heightmaps/cmap1.png", 100, 100, 100, 0, 10, scene, false
+				);
+
+				var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+
+				groundMaterial.diffuseTexture = new BABYLON.Texture("assets/textures/ground.jpg", scene);
+
+				groundMaterial.diffuseTexture.uScale = 6;
+				groundMaterial.diffuseTexture.vScale = 6;
+				groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+				ground.position.y = -2.05;
+				ground.material = groundMaterial;
+
+            return scene;
+
+        };
+
+        var scene = createScene();
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>
