@@ -34,12 +34,13 @@
 
             // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
+
             var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
             var physicsPlugin = new BABYLON.CannonJSPlugin();
             scene.enablePhysics(gravityVector, physicsPlugin);
 
             // This creates and positions a free camera (non-mesh)
-            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 6, -10), scene);
             camera.setTarget(BABYLON.Vector3.Zero()); // This targets the camera to scene origin
             camera.attachControl(canvas, true); // This attaches the camera to the canvas
 
@@ -57,7 +58,7 @@
 				groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
 
             var ground = BABYLON.Mesh.CreateGroundFromHeightMap(
-               "ground", "assets/heightmaps/terrain1.png", 500, 500, 500, 0, 30, scene, false,
+               "ground", "assets/heightmaps/terrain1.png", 1000, 1000, 50, 0, 30, scene, false,
                function () {
                   ground.setPhysicsState(BABYLON.PhysicsEngine.HeightmapImpostor, { mass: 0 });
                   ground.position.y = -10;
@@ -79,10 +80,12 @@
                { mass: 1, restitution: 0.9 }, scene
             );
 
-            // var loader = new BABYLON.AssetsManager(scene);
-            // BABYLON.SceneLoader.Load("assets/mesh/", ".obj", engine, function (newScene) {
-            //
-            // });
+            camera.ellipsoid = new BABYLON.Vector3(.5, 5, .5);
+            scene.collisionsEnabled = true;
+            camera.applyGravity = true;
+            camera.checkCollisions = true;
+            ground.checkCollisions = true;
+            // box.checkCollisions = true;
 
             return scene;
 
