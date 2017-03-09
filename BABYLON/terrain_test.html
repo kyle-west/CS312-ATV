@@ -78,6 +78,13 @@
                sphere, BABYLON.PhysicsImpostor.SphereImpostor,
                { mass: 1, restitution: 0.9 }, scene
             );
+            var player
+            BABYLON.SceneLoader.ImportMesh("","assets/mesh/", "mustang-wheel.babylon", scene,
+            function(newMeshes, particleSystems, skeletons) {
+              player = newMeshes[0];
+              player.position = new Babylon.Vector3(0,5,0);
+            });
+            // player.position.y=5;
 
             // var loader = new BABYLON.AssetsManager(scene);
             // BABYLON.SceneLoader.Load("assets/mesh/", ".obj", engine, function (newScene) {
