@@ -1,0 +1,43 @@
+#####################################################
+# TODO LOG                                          #
+# Record here tasks that need to be completed       #
+# Use the following template to record tasks:
+   * TASK:
+      - DETAILS: <optional>
+      - PRIORITY:
+      - STATUS:
+#####################################################
+
+================  NEEDS ATTENTION  ==================
+
+   * TASK: make new height maps for the terrain
+      - PRIORITY: medium
+      - STATUS: in progress (Kyle)
+
+   * TASK: set up vehicle
+      - DETAILS: load meshes, attach parts, implement physics
+      - PRIORITY: high
+      - STATUS: in progress (Jake)
+
+   * TASK: replace skybox with new set of images
+      - PRIORITY: low
+      - STATUS: not started
+
+   * TASK: add obstacles in terrain
+      - PRIORITY: low
+      - STATUS: not started
+
+   * TASK: add GUI for the user to change settings
+      - DETAILS: Weather settings, sound level, etc
+      - PRIORITY: low
+      - STATUS: not started
+
+================  COMPLETED TASKS  ==================
+
+   * TASK: Create SkyBox that follows player
+      - PRIORITY: medium
+      - STATUS: complete
+
+   * TASK: Create music
+      - PRIORITY: low
+      - STATUS: complete
