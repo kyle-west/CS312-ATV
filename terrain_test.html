@@ -79,12 +79,6 @@
                sphere, BABYLON.PhysicsImpostor.SphereImpostor,
                { mass: 1, restitution: 0.9 }, scene
             );
-            var player
-            BABYLON.SceneLoader.ImportMesh("","assets/mesh/", "mustang-wheel.babylon", scene,
-            function(newMeshes, particleSystems, skeletons) {
-              player = newMeshes[0];
-              player.position = new Babylon.Vector3(0,5,0);
-            });
             // player.position.y=5;
 
             camera.ellipsoid = new BABYLON.Vector3(.5, 5, .5);
@@ -94,6 +88,35 @@
             ground.checkCollisions = true;
             // box.checkCollisions = true;
 
+            var atv;
+            BABYLON.SceneLoader.ImportMesh("","assets/mesh/", "atv-complete.babylon", scene,
+            function(newMeshes, particleSystems, skeletons) {
+               atv = newMeshes[0]; //bl 6-8 fl 9-11 br 12-14 fr 15-17
+               // body is 0-1
+               bl = newMeshes[6];
+               bl1 = newMeshes[7];
+              //  bl = newMeshes[8];
+
+              bl.physicsImpostor = new BABYLON.PhysicsImpostor(bl,
+                BABYLON.PhysicsImpostor.SphereImpostor, {mass:80,restitution:.9},scene);
+                // atv.position = new Babylon.Vector3(5,10,0);
+                atv.physicsImpostor = new BABYLON.PhysicsImpostor(atv,
+                  BABYLON.PhysicsImpostor.BoxImposter
+                  , {mass: 40,
+                    friction: 0.5,
+                    restitution: 0.5,
+                    nativeOptions: {
+                      noSleep: true,
+                      move: true
+                    }},scene);
+            });
+            // buildCar(scene);
+
+            scene.registerBeforeRender(function () {
+              if (scene.isReady() && atv) {
+                // atv.position.y += .1;
+              }
+            });
             return scene;
 
         };
@@ -104,6 +127,9 @@
             scene.render();
         });
 
+        function buildCar(scene) {
+
+        }
         // Resize
         window.addEventListener("resize", function () {
             engine.resize();
