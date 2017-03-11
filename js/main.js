@@ -22,14 +22,14 @@ var createScene = function () {
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
    setUpGround(scene);
-   createATV(scene,atv);
+   // createATV(scene,atv);
 
-   var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
-   sphere.position.y = 15;
-   sphere.physicsImpostor = new BABYLON.PhysicsImpostor(
-      sphere, BABYLON.PhysicsImpostor.SphereImpostor,
-      { mass: 1, restitution: 0.9 }, scene
-   );
+   // var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
+   // sphere.position.y = 15;
+   // sphere.physicsImpostor = new BABYLON.PhysicsImpostor(
+   //    sphere, BABYLON.PhysicsImpostor.SphereImpostor,
+   //    { mass: 1, restitution: 0.01 }, scene
+   // );
 
    placeTrees(scene);
 
@@ -46,12 +46,13 @@ var createScene = function () {
    var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
    skyboxMaterial.backFaceCulling = false;
-   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/textures/skybox/skybox", scene);
+   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/textures/dark/dark", scene);
    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
    skyboxMaterial.disableLighting = true;
    skybox.material = skyboxMaterial;
+   skybox.position.y = -100;
 
    // attributes that take place when in game PLAY mode.
    if (SETTINGS.game) {
