@@ -22,12 +22,15 @@ var createScene = function () {
 
    setUpGround(scene);
    createATV(scene,atv);
+
    var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
    sphere.position.y = 15;
    sphere.physicsImpostor = new BABYLON.PhysicsImpostor(
       sphere, BABYLON.PhysicsImpostor.SphereImpostor,
       { mass: 1, restitution: 0.9 }, scene
    );
+
+   placeTrees(scene);
 
    // Skybox
    var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
@@ -40,6 +43,7 @@ var createScene = function () {
    skyboxMaterial.disableLighting = true;
    skybox.material = skyboxMaterial;
 
+   // attributes that take place when in game PLAY mode.
    if (SETTINGS.game) {
       camera.ellipsoid = new BABYLON.Vector3(.5, 5, .5);
       scene.collisionsEnabled = true;
