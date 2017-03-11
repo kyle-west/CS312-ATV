@@ -1,12 +1,44 @@
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
-
+var params, particleSystem;
 var createScene = function () {
    // This creates a basic Babylon Scene object (non-mesh)
    var scene = new BABYLON.Scene(engine);
    // scene.debugLayer.show();
    var atv;
    scene.clearColor = new BABYLON.Color3(0.8, 0.8, 1);
+
+   // DAT.GUI //
+   gui = new dat.GUI({
+     height : 5 * 32 - 1
+   });
+
+   // parameters to be used in GUI
+   params = {
+     numParticles: 500,
+     NSwind: 0,
+     WEwind: 0,
+     // functions render as buttons
+     snow: function () {}
+    //  sunny: function () {restartEngine(worldWeather,0)},
+      // rain: function () {restartEngine("rain");},
+   //  condition: "weather"
+   };
+   createParticleSystem(scene);
+
+  //  worldWeather = "snow";
+   // add the params to the gui
+  //  gui.add(params, "sunny").name("Sunny");
+   gui.add(params, "snow").name("Snow");
+  //  gui.add(params, "rain").name("Rain");
+   gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
+     function() {
+       // console.log(worldWeather);
+        // restartEngine(worldWeather);
+     });
+   gui.add(params, "NSwind",-50,50,1).name('NSwind');
+   gui.add(params, "WEwind",-50,50,1).name('WEwind');
+   // DAT.GUI //
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
    var physicsPlugin = new BABYLON.CannonJSPlugin();
@@ -77,6 +109,8 @@ var createScene = function () {
 var scene = createScene();
 engine.runRenderLoop(function () {
    scene.render();
+   particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
+   
 });
 
 // Resize
