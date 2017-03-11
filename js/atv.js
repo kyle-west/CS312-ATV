@@ -28,8 +28,8 @@ function createATV(scene,atv) {
    //  bl.physicsImpostor = new BABYLON.PhysicsImpostor(bl,
       // BABYLON.PhysicsImpostor.SphereImpostor, {mass:1,restitution:.9},scene);
       // atv.position = new Babylon.Vector3(5,10,0);
-      atv.physicsImpostor = new BABYLON.PhysicsImpostor(atv,
-        BABYLON.PhysicsImpostor.BoxImposter,
+    atv.physicsImpostor = new BABYLON.PhysicsImpostor(atv,
+      BABYLON.PhysicsImpostor.BoxImposter,
          {mass: 40,
           friction: 0.5,
           restitution: 0.5,

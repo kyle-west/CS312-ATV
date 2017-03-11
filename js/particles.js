@@ -31,7 +31,7 @@ function createParticleSystem (scene) {
   particleSystem.minLifeTime = 5;
   particleSystem.maxLifeTime = 10;
 
-  particleSystem.emitRate = 10000;
+  particleSystem.emitRate = 2000;
 
   // particleSystem.manualEmitCount = 300; // if you want to emit particles in bursts
 
