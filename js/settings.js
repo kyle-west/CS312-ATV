@@ -1,5 +1,5 @@
 /*******************************************************************
-* constants.js is the file where we store global flags for the game
+* settings.js is the file where we store global flags for the game
 *******************************************************************/
 
 /**************************************************
@@ -27,5 +27,5 @@ const OPTIONS = {
 **************************************************/
 var SETTINGS = {
    sound : OPTIONS.sound.ON,
-   game  : OPTIONS.game.DEV
+   game  : OPTIONS.game.PLAY
 };
