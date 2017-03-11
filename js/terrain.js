@@ -4,15 +4,15 @@
 **********************************************************/
 function setUpGround(scene) {
    var mounds = new BABYLON.StandardMaterial("ground", scene);
-   mounds.diffuseTexture = new BABYLON.Texture("assets/textures/moss.jpg", scene);
+   mounds.diffuseTexture = new BABYLON.Texture("assets/textures/snow_mud2.jpg", scene);
    mounds.diffuseTexture.uScale = 30;
    mounds.diffuseTexture.vScale = 30;
-   mounds.specularColor = new BABYLON.Color3(0, 0, 0);
+   mounds.specularColor = new BABYLON.Color3(196/255, 134/255, 58/255);//.Color3(0,0,0);
 
    var flat = new BABYLON.StandardMaterial("ground", scene);
-   flat.diffuseTexture = new BABYLON.Texture("assets/textures/mud.png", scene);
-   flat.diffuseTexture.uScale = 500;
-   flat.diffuseTexture.vScale = 500;
+   flat.diffuseTexture = new BABYLON.Texture("assets/textures/snow_mud.jpg", scene);
+   flat.diffuseTexture.uScale = 100;
+   flat.diffuseTexture.vScale = 100;
    flat.specularColor = new BABYLON.Color3(0, 0, 0);
 
    var ground0 = BABYLON.Mesh.CreateGround("ground1", 10000, 10000, 2, scene);
