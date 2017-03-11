@@ -4,6 +4,7 @@ var engine = new BABYLON.Engine(canvas, true);
 var createScene = function () {
    // This creates a basic Babylon Scene object (non-mesh)
    var scene = new BABYLON.Scene(engine);
+   // scene.debugLayer.show();
    scene.clearColor = new BABYLON.Color3(0.8, 0.8, 1);
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
@@ -23,7 +24,16 @@ var createScene = function () {
 
    placeTrees(scene);
 
+   placeRocks(scene);
+
    // Skybox
+   // loads skyBox images named accordingly:
+   //    [image name]_nx.jpg --> the LEFT side
+   //    [image name]_ny.jpg --> the BOTTOM side
+   //    [image name]_nz.jpg --> the BACK side
+   //    [image name]_px.jpg --> the RIGHT side
+   //    [image name]_py.jpg --> the TOP side
+   //    [image name]_pz.jpg --> the FRONT side
    var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
    skyboxMaterial.backFaceCulling = false;
@@ -55,7 +65,6 @@ var createScene = function () {
 };
 
 var scene = createScene();
-
 engine.runRenderLoop(function () {
    scene.render();
 });

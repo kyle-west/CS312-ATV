@@ -24,6 +24,7 @@ function setUpGround(scene) {
    for (var i = -3; i < 5; i++) {
       for (var j = -3; j < 5; j++) {
          createGroundSquare(
+            "ground <"+i+","+j+">",
             "assets/heightmaps/terrain0.png",
             mounds,
             {
@@ -37,9 +38,9 @@ function setUpGround(scene) {
    }
 }
 
-function createGroundSquare(heightMap, material , position, scene) {
+function createGroundSquare(name,heightMap, material , position, scene) {
    var ground = BABYLON.Mesh.CreateGroundFromHeightMap(
-      "", heightMap, 1000, 1000, 50, 0, 30, scene, false,
+      name, heightMap, 1000, 1000, 50, 0, 30, scene, false,
       function () {
          ground.setPhysicsState(BABYLON.PhysicsEngine.HeightmapImpostor, { mass: 0 });
          ground.position.x = position.x;
@@ -55,5 +56,6 @@ function createGroundSquare(heightMap, material , position, scene) {
       });
    ground.material = material;
    ground.checkCollisions = true;
+   // console.info(name);
    return ground;
 }
