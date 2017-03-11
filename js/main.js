@@ -25,19 +25,19 @@ var createScene = function () {
    //  condition: "weather"
    };
    createParticleSystem(scene);
-
+  //  scene.debugLayer.show()
   //  worldWeather = "snow";
    // add the params to the gui
   //  gui.add(params, "sunny").name("Sunny");
    gui.add(params, "snow").name("Snow");
   //  gui.add(params, "rain").name("Rain");
-   gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
-     function() {
+  //  gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
+    //  function() {
        // console.log(worldWeather);
         // restartEngine(worldWeather);
-     });
-   gui.add(params, "NSwind",-50,50,1).name('NSwind');
-   gui.add(params, "WEwind",-50,50,1).name('WEwind');
+    //  });
+   gui.add(params, "NSwind",-20,20,1).name('NSwind');
+   gui.add(params, "WEwind",-20,20,1).name('WEwind');
    // DAT.GUI //
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
@@ -110,7 +110,7 @@ var scene = createScene();
 engine.runRenderLoop(function () {
    scene.render();
    particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
-   
+
 });
 
 // Resize
