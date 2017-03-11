@@ -5,6 +5,7 @@ var createScene = function () {
    // This creates a basic Babylon Scene object (non-mesh)
    var scene = new BABYLON.Scene(engine);
    // scene.debugLayer.show();
+   var atv;
    scene.clearColor = new BABYLON.Color3(0.8, 0.8, 1);
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
@@ -21,6 +22,14 @@ var createScene = function () {
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
    setUpGround(scene);
+   createATV(scene,atv);
+
+   var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
+   sphere.position.y = 15;
+   sphere.physicsImpostor = new BABYLON.PhysicsImpostor(
+      sphere, BABYLON.PhysicsImpostor.SphereImpostor,
+      { mass: 1, restitution: 0.9 }, scene
+   );
 
    placeTrees(scene);
 
