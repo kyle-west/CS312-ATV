@@ -2,6 +2,9 @@
 * This function sets up our ground meshes. These are static
 * and loaded from height maps
 **********************************************************/
+const GRND_TOTAL = 64;
+var   GRND_COUNT = 0;
+var   GRND_DONE  = false;
 function setUpGround(scene) {
    var mounds = new BABYLON.StandardMaterial("ground", scene);
    mounds.diffuseTexture = new BABYLON.Texture("assets/textures/snow_mud2.jpg", scene);
@@ -53,9 +56,23 @@ function createGroundSquare(name,heightMap, material , position, scene) {
                }
             })
          });
+         GRND_add();
       });
    ground.material = material;
    ground.checkCollisions = true;
    // console.info(name);
    return ground;
+}
+
+function GRND_add(log = false) {
+   GRND_COUNT++;
+   if (log) {
+      console.log("LOADED GROUND: "+GRND_COUNT+"/"+GRND_TOTAL);
+   }
+   if (GRND_COUNT == GRND_TOTAL)
+      GRND_DONE = true;
+}
+
+function GRND_done() {
+   return GRND_done;
 }

@@ -1,6 +1,6 @@
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
-var params, particleSystem;
+var params, particleSystem, detail, music;
 var createScene = function () {
    // This creates a basic Babylon Scene object (non-mesh)
    var scene = new BABYLON.Scene(engine);
@@ -10,32 +10,48 @@ var createScene = function () {
 
    // DAT.GUI //
    gui = new dat.GUI({
-     height : 5 * 32 - 1
+      height : 5 * 32 - 1
    });
+   gui.closed = true; // closed by default
 
    // parameters to be used in GUI
    params = {
-     numParticles: 500,
-     NSwind: 0,
-     WEwind: 0,
-     // functions render as buttons
-     snow: function () {}
-    //  sunny: function () {restartEngine(worldWeather,0)},
+      numParticles: 500,
+      NSwind: 0,
+      WEwind: 0,
+
+      sound: true,
+
+      // functions render as buttons
+      snow: function () {}
+      //  sunny: function () {restartEngine(worldWeather,0)},
       // rain: function () {restartEngine("rain");},
-   //  condition: "weather"
+      //  condition: "weather"
    };
    createParticleSystem(scene);
-  //  scene.debugLayer.show()
-  //  worldWeather = "snow";
+   //  scene.debugLayer.show()
+   //  worldWeather = "snow";
    // add the params to the gui
-  //  gui.add(params, "sunny").name("Sunny");
+   //  gui.add(params, "sunny").name("Sunny");
+
+   // this is our mute button
+   gui.add(params, "sound").name("Sound").onChange(function() {
+      if (SETTINGS.sound) {
+         SETTINGS.sound = OPTIONS.sound.OFF;
+         music.stop();
+      } else {
+         SETTINGS.sound = OPTIONS.sound.ON;
+         music.play();
+      }
+   });
+
    gui.add(params, "snow").name("Snow");
-  //  gui.add(params, "rain").name("Rain");
-  //  gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
-    //  function() {
-       // console.log(worldWeather);
-        // restartEngine(worldWeather);
-    //  });
+   //  gui.add(params, "rain").name("Rain");
+   //  gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
+   //  function() {
+   // console.log(worldWeather);
+   // restartEngine(worldWeather);
+   //  });
    gui.add(params, "NSwind",-20,20,1).name('NSwind');
    gui.add(params, "WEwind",-20,20,1).name('WEwind');
    // DAT.GUI //
@@ -53,7 +69,13 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
-   setUpGround(scene);
+   setUpGround(scene, detail);
+   var skybox = setUpSky(scene);
+
+   var props = new Props(scene);
+   props.placeTrees();
+   props.placeRocks();
+
    // createATV(scene,atv);
 
    // var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
@@ -63,28 +85,11 @@ var createScene = function () {
    //    { mass: 1, restitution: 0.01 }, scene
    // );
 
-   placeTrees(scene);
-
-   placeRocks(scene);
-
-   // Skybox
-   // loads skyBox images named accordingly:
-   //    [image name]_nx.jpg --> the LEFT side
-   //    [image name]_ny.jpg --> the BOTTOM side
-   //    [image name]_nz.jpg --> the BACK side
-   //    [image name]_px.jpg --> the RIGHT side
-   //    [image name]_py.jpg --> the TOP side
-   //    [image name]_pz.jpg --> the FRONT side
-   var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
-   var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-   skyboxMaterial.backFaceCulling = false;
-   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/textures/dark/dark", scene);
-   skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-   skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-   skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-   skyboxMaterial.disableLighting = true;
-   skybox.material = skyboxMaterial;
-   skybox.position.y = -100;
+   // our Background theme
+   music = new BABYLON.Sound(
+      "Background", "assets/sounds/bg_v1.mp3", scene, null,
+      { loop: true, autoplay: true }
+   );
 
    // attributes that take place when in game PLAY mode.
    if (SETTINGS.game) {
@@ -95,14 +100,9 @@ var createScene = function () {
       skybox.infiniteDistance = true;
 
       if (SETTINGS.sound) {
-         var music = new BABYLON.Sound(
-            "Background", "assets/sounds/bg_v1.mp3", scene, null,
-            { loop: true, autoplay: true }
-         );
+         music.play();
       }
    }
-
-
    return scene;
 };
 

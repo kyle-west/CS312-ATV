@@ -1,6 +1,7 @@
 function createParticleSystem (scene) {
   // where particles originate from.
   pBoxSpawn = BABYLON.Mesh.CreateBox("pBoxSpawn", 1.0, scene);
+  pBoxSpawn.isVisible = false;
 
   // 2 param num of particles
   particleSystem = new BABYLON.ParticleSystem("particles", 100000, scene);
