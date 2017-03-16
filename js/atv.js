@@ -1,4 +1,5 @@
 function createATV(scene,atv) {
+  testcar();
 
   BABYLON.SceneLoader.ImportMesh("","assets/mesh/", "atv-complete-test.babylon", scene,
   function(newMeshes, particleSystems, skeletons) {
@@ -6,7 +7,6 @@ function createATV(scene,atv) {
       newMeshes[i].position.y = 1.5;
     }
     atv = newMeshes[3]; //fl 0 fr 1 br 2 bl 4 body 3
-
     //bl 6-8 fl 9-11 br 12-14 fr 15-17
     // body is 0-1
     fl = newMeshes[0];
@@ -28,24 +28,36 @@ function createATV(scene,atv) {
    //  bl.physicsImpostor = new BABYLON.PhysicsImpostor(bl,
       // BABYLON.PhysicsImpostor.SphereImpostor, {mass:1,restitution:.9},scene);
       // atv.position = new Babylon.Vector3(5,10,0);
-    atv.physicsImpostor = new BABYLON.PhysicsImpostor(atv,
-      BABYLON.PhysicsImpostor.BoxImposter,
-         {mass: 40,
-          friction: 0.5,
-          restitution: 0.5,
-          nativeOptions: {
-            noSleep: true,
-            move: true
-          }},scene);
+      childMesh = BABYLON.Mesh.CreateBox("childMesh",1,scene);
+      // atv.scaling = new BABYLON.Vector3(2,1,1);
+      childMesh.scaling = new BABYLON.Vector3(1,1,2);
+      childMesh.wireframe = true;
+      childMesh.position = new BABYLON.Vector3(0,10.5,0);
+      childMesh.physicsImpostor = new BABYLON.PhysicsImpostor(childMesh,
+        BABYLON.PhysicsImpostor.BoxImpostor, {mass:1,friction:1 ,restitution:0},scene);
+
         });
         // buildCar(scene);
+              // friction: 0.5,
+
+              // nativeOptions: {
+                // noSleep: true,
+                // move: true
+
 
         scene.registerBeforeRender(function () {
           if (scene.isReady() && atv) {
             // atv.position.y += .1;
-
+            childMesh.position = new BABYLON.Vector3(10,7,0);
+            // childMesh.parent = atv;
+            // atv.parent = childMesh;
             // if(bl.position.y < 0) bl.position.y =0;
           }
         });
+
+
+}
+
+function testcar() {
 
 }

@@ -54,7 +54,7 @@ var createScene = function () {
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
    setUpGround(scene);
-   // createATV(scene,atv);
+   createATV(scene,atv);
 
    // var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
    // sphere.position.y = 15;
