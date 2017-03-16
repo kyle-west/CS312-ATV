@@ -28,7 +28,7 @@ var createScene = function () {
       // rain: function () {restartEngine("rain");},
       //  condition: "weather"
    };
-   createParticleSystem(scene);
+   var particleBox = createParticleSystem(scene);
    //  scene.debugLayer.show()
    //  worldWeather = "snow";
    // add the params to the gui
@@ -98,6 +98,8 @@ var createScene = function () {
       camera.applyGravity = true;
       camera.checkCollisions = true;
       skybox.infiniteDistance = true;
+      particleBox.position.y = 100;
+      particleBox.parent = skybox;
 
       if (SETTINGS.sound) {
          music.play();
