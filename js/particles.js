@@ -1,6 +1,7 @@
 function createParticleSystem (scene) {
   // where particles originate from.
   pBoxSpawn = BABYLON.Mesh.CreateBox("pBoxSpawn", 1.0, scene);
+  pBoxSpawn.isVisible = false;
 
   // 2 param num of particles
   particleSystem = new BABYLON.ParticleSystem("particles", 100000, scene);
@@ -15,8 +16,9 @@ function createParticleSystem (scene) {
   // Where the particles comes from
   particleSystem.emitter = pBoxSpawn; // the starting object, the emitter
 
-  particleSystem.minEmitBox = new BABYLON.Vector3(-200, 90, -200); // Starting all From
-  particleSystem.maxEmitBox = new BABYLON.Vector3(200, 100, 200); // To...
+  var size = 400; // orginally 200
+  particleSystem.minEmitBox = new BABYLON.Vector3(-size, 90, -size); // Starting all From
+  particleSystem.maxEmitBox = new BABYLON.Vector3(size, 100, size); // To...
 
   // Colors of all particles (splited in 2 + specific color before dispose)
   // particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0); // combine for final color
@@ -31,7 +33,7 @@ function createParticleSystem (scene) {
   particleSystem.minLifeTime = 5;
   particleSystem.maxLifeTime = 10;
 
-  particleSystem.emitRate = 2000;
+  particleSystem.emitRate = 6000;// originally 2000;
 
   // particleSystem.manualEmitCount = 300; // if you want to emit particles in bursts
 
@@ -49,5 +51,7 @@ function createParticleSystem (scene) {
   particleSystem.direction2 = new BABYLON.Vector3(7, -8, -3);
 
   particleSystem.start();
+  console.info("Particle System started");
   // particleSystem.stop();
+  return pBoxSpawn;
 }

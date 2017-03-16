@@ -24,16 +24,25 @@ function fixHeight(mesh) {
    if (mesh.position.z > 0) dz = -1;
 
 
-   grid.x = Math.floor((mesh.position.x + 475*dx) / 950);
-   grid.z = Math.floor((mesh.position.z + 475*dz) / 950);
+   grid.x = Math.floor((mesh.position.x + 475) / 950);
+   grid.z = Math.floor((mesh.position.z + 475) / 950);
    console.info("Mesh '"+mesh.name+"' found on ground <"+grid.x+","+grid.z+">");
-   // lowermesh = scene.getMeshByID("ground <"+grid.x+","+grid.z+">");
-   // var safety = 1;
-   // if (lowermesh) {
-   //    while (lowermesh.intersectsMesh(mesh,false) && (safety < 50)) {
-   //       mesh.position.y += 1;
-   //       safety++;
-   //    }
-   //    if (safety == 50) console.error("exited via safety on "+mesh.name);
-   // }
+   lowermesh = scene.getMeshByID("ground <"+grid.x+","+grid.z+">");
+   var safety = 1;
+   if (lowermesh && lowermesh.intersectsMesh(mesh,true)) {
+      console.info("intersection found, correcting...");
+      while (lowermesh.intersectsMesh(mesh,true) && (safety < 50)) {
+         mesh.position.y = mesh.position.y + 1;
+         safety++;
+      }
+      if (safety == 50) console.error("exited via safety on "+mesh.name);
+      else console.info("... moved to height: " + mesh.position.y);
+   } else {
+      console.info("no intersection");
+   }
+}
+
+function waitFor(funct, callback) {
+   while (!funct()) { /*Do nothing*/ }
+   callback();
 }
