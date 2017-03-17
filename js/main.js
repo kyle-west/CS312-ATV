@@ -57,7 +57,7 @@ var createScene = function () {
    // DAT.GUI //
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
-   var physicsPlugin = new BABYLON.OimoJSPlugin();
+   var physicsPlugin = new BABYLON.CannonJSPlugin();
    scene.enablePhysics(gravityVector, physicsPlugin);
 
    // This creates and positions a free camera (non-mesh)
@@ -70,7 +70,12 @@ var createScene = function () {
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
    // createATV(scene,atv);
-   setUpGround(scene, detail);
+
+   var ground = new Ground(scene);
+   ground.heightMaps = [
+      "assets/heightmaps/terrain0.png"
+   ];
+   ground.setup();
    var skybox = setUpSky(scene);
 
    var props = new Props(scene);
