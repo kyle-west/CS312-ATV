@@ -7,7 +7,6 @@ var createScene = function () {
    // scene.debugLayer.show();
    var atv;
    scene.clearColor = new BABYLON.Color3(0.8, 0.8, 1);
-
    // DAT.GUI //
    gui = new dat.GUI({
       height : 5 * 32 - 1
@@ -72,7 +71,7 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
-   // createATV(scene,atv);
+   createATV(scene,atv);
 
    var ground = new Ground(scene);
    ground.heightMaps = [

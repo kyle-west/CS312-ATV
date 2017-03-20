@@ -41,8 +41,8 @@ function createATV(scene,atv) {
 
         atv.parent = childMesh;
         atv.position = new BABYLON.Vector3(0,-.25,0);
-        bl.parent = childMesh;
-        bl.position = new BABYLON.Vector3(5,0,0);
+        // bl.parent = childMesh;
+        // bl.position = new BABYLON.Vector3(5,0,0);
         });
         // buildCar(scene);
               // friction: 0.5,
@@ -58,7 +58,7 @@ function createATV(scene,atv) {
             // atv.position.y += .1;
             // childMesh.position.y += .2;
             // childMesh.position.x += .2;
-            childMesh.physicsImpostor.applyImpulse(new BABYLON.Vector3(.1, 0, 0), childMesh.getAbsolutePosition());
+            // childMesh.physicsImpostor.applyImpulse(new BABYLON.Vector3(.1, 0, 0), childMesh.getAbsolutePosition());
             // if(bl.position.y < 0) bl.position.y =0;
           }
         });
