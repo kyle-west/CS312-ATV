@@ -13,7 +13,7 @@ var createScene = function () {
       height : 5 * 32 - 1
    });
    gui.closed = true; // closed by default
-
+   var debF = false;
    // parameters to be used in GUI
    params = {
       numParticles: 500,
@@ -23,29 +23,32 @@ var createScene = function () {
       sound: true,
 
       // functions render as buttons
-      snow: function () {}
+      snow: function () {},
+      debug: function () {if(!debF) {scene.debugLayer.show(); debF = !debF;}
+                          else {scene.debugLayer.hide(); deb = !debF;}},
       //  sunny: function () {restartEngine(worldWeather,0)},
       // rain: function () {restartEngine("rain");},
       //  condition: "weather"
    };
    var particleBox = createParticleSystem(scene);
-   //  scene.debugLayer.show()
+   scene.debugLayer.hide()
    //  worldWeather = "snow";
    // add the params to the gui
    //  gui.add(params, "sunny").name("Sunny");
 
    // this is our mute button
-   gui.add(params, "sound").name("Sound").onChange(function() {
-      if (SETTINGS.sound) {
-         SETTINGS.sound = OPTIONS.sound.OFF;
-         music.stop();
-      } else {
-         SETTINGS.sound = OPTIONS.sound.ON;
-         music.play();
-      }
-   });
 
    gui.add(params, "snow").name("Snow");
+   gui.add(params, "debug").name("Debug");
+   gui.add(params, "sound").name("Sound").onChange(function() {
+     if (SETTINGS.sound) {
+       SETTINGS.sound = OPTIONS.sound.OFF;
+       music.stop();
+     } else {
+       SETTINGS.sound = OPTIONS.sound.ON;
+       music.play();
+     }
+   });
    //  gui.add(params, "rain").name("Rain");
    //  gui.add(params, "numParticles",0,50000,100).name('# of Particles').onFinishChange(
    //  function() {

@@ -17,7 +17,7 @@ function createParticleSystem (scene) {
   particleSystem.emitter = pBoxSpawn; // the starting object, the emitter
 
   var size = 400; // orginally 200
-  particleSystem.minEmitBox = new BABYLON.Vector3(-size, 90, -size); // Starting all From
+  particleSystem.minEmitBox = new BABYLON.Vector3(-size, 0, -size); // Starting all From
   particleSystem.maxEmitBox = new BABYLON.Vector3(size, 100, size); // To...
 
   // Colors of all particles (splited in 2 + specific color before dispose)

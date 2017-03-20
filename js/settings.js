@@ -27,5 +27,5 @@ const OPTIONS = {
 **************************************************/
 var SETTINGS = {
    sound : OPTIONS.sound.ON,
-   game  : OPTIONS.game.PLAY
+   game  : OPTIONS.game.DEV
 };

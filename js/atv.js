@@ -17,7 +17,7 @@ function createATV(scene,atv) {
     //  bl = newMeshes[8];
     // bl.position = new BABYLON.Vector3(0,5,0);
     bl.physicsImpostor = new BABYLON.PhysicsImpostor(bl,
-      BABYLON.PhysicsImpostor.SphereImpostor, {mass:1,restitution:.1},scene);
+      BABYLON.PhysicsImpostor.CylinderImpostor, {mass:1,restitution:.1},scene);
     br.physicsImpostor = new BABYLON.PhysicsImpostor(br,
       BABYLON.PhysicsImpostor.SphereImpostor, {mass:1,restitution:.1},scene);
     fl.physicsImpostor = new BABYLON.PhysicsImpostor(fl,
@@ -30,12 +30,19 @@ function createATV(scene,atv) {
       // atv.position = new Babylon.Vector3(5,10,0);
       childMesh = BABYLON.Mesh.CreateBox("childMesh",1,scene);
       // atv.scaling = new BABYLON.Vector3(2,1,1);
-      childMesh.scaling = new BABYLON.Vector3(1,1,2);
+      // childMesh.scaling = new BABYLON.Vector3(1,1,2);
       childMesh.wireframe = true;
-      childMesh.position = new BABYLON.Vector3(0,10.5,0);
+      // childMesh.position = new BABYLON.Vector3(0,10.5,0);
       childMesh.physicsImpostor = new BABYLON.PhysicsImpostor(childMesh,
-        BABYLON.PhysicsImpostor.BoxImpostor, {mass:1,friction:1 ,restitution:0},scene);
+        BABYLON.PhysicsImpostor.BoxImpostor, {mass:1,friction:0 ,restitution:0},scene);
 
+        // var distanceJoint = new BABYLON.DistanceJoint({ maxDistance: 1 });
+        // childMesh.physicsImpostor.addJoint(bl.physicsImpostor, distanceJoint);
+
+        atv.parent = childMesh;
+        atv.position = new BABYLON.Vector3(0,-.25,0);
+        bl.parent = childMesh;
+        bl.position = new BABYLON.Vector3(5,0,0);
         });
         // buildCar(scene);
               // friction: 0.5,
@@ -47,10 +54,11 @@ function createATV(scene,atv) {
 
         scene.registerBeforeRender(function () {
           if (scene.isReady() && atv) {
+            bl.rotation.x = bl.rotation.y = bl.rotation.z = 0;
             // atv.position.y += .1;
-            childMesh.position = new BABYLON.Vector3(10,7,0);
-            // childMesh.parent = atv;
-            // atv.parent = childMesh;
+            // childMesh.position.y += .2;
+            // childMesh.position.x += .2;
+            childMesh.physicsImpostor.applyImpulse(new BABYLON.Vector3(.1, 0, 0), childMesh.getAbsolutePosition());
             // if(bl.position.y < 0) bl.position.y =0;
           }
         });
