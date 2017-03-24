@@ -71,7 +71,7 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
-   createATV(scene,atv);
+   createATV(scene,atv,camera);
 
    var ground = new Ground(scene);
    ground.heightMaps = [
@@ -81,8 +81,8 @@ var createScene = function () {
    var skybox = setUpSky(scene);
 
    var props = new Props(scene);
-   props.placeTrees();
-   props.placeRocks();
+   // props.placeTrees();
+   // props.placeRocks();
 
    // our Background theme
    music = new BABYLON.Sound(
@@ -92,7 +92,7 @@ var createScene = function () {
 
    // attributes that take place when in game PLAY mode.
    if (SETTINGS.game) {
-      camera.ellipsoid = new BABYLON.Vector3(.5, 5, .5);
+      camera.ellipsoid = new BABYLON.Vector3(.5, 3, .5);
       scene.collisionsEnabled = true;
       camera.applyGravity = true;
       camera.checkCollisions = true;
