@@ -59,7 +59,7 @@ var createScene = function () {
    // DAT.GUI //
 
    var gravityVector = new BABYLON.Vector3(0,-9.81, 0);
-   var physicsPlugin = new BABYLON.CannonJSPlugin();
+   var physicsPlugin = new BABYLON.OimoJSPlugin();
    scene.enablePhysics(gravityVector, physicsPlugin);
 
    // This creates and positions a free camera (non-mesh)
