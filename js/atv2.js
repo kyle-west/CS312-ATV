@@ -33,9 +33,9 @@ function createATV(scene,atv,camera) {
    scene.registerBeforeRender(function () {
       if (scene.isReady() && atv) {
          if (SETTINGS.game) {
-            atv.position.y = camera.position.y - 1.7;
-            atv.position.x = camera.position.x;
-            atv.position.z = camera.position.z + .2;
+            // atv.position.y = camera.position.y - 1.7;
+            // atv.position.x = camera.position.x;
+            // atv.position.z = camera.position.z + .2;
          }
       }
    });
