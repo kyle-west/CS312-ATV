@@ -14,11 +14,13 @@ var createScene = function () {
    gui.closed = true; // closed by default
    var debF = false;
    // parameters to be used in GUI
+   var particleBox = createParticleSystem(scene);
+   var wflag = false;
    params = {
       numParticles: 500,
       NSwind: 0,
       WEwind: 0,
-
+      weather: function(){particleBox = createParticleSystem(scene, wflag); wflag = !wflag},
       sound: true,
 
       // functions render as buttons
@@ -29,7 +31,6 @@ var createScene = function () {
       // rain: function () {restartEngine("rain");},
       //  condition: "weather"
    };
-   var particleBox = createParticleSystem(scene);
    scene.debugLayer.hide()
    //  worldWeather = "snow";
    // add the params to the gui
@@ -37,7 +38,7 @@ var createScene = function () {
 
    // this is our mute button
 
-   gui.add(params, "snow").name("Snow");
+   gui.add(params, "weather").name("Weather");
    gui.add(params, "debug").name("Debug");
    gui.add(params, "sound").name("Sound").onChange(function() {
      if (SETTINGS.sound) {
@@ -71,8 +72,9 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
+  //  createATV(scene,atv,camera);
    createATV(scene,atv);
-
+  // createCar(scene);
    var ground = new Ground(scene);
    ground.heightMaps = [
       "assets/heightmaps/terrain0.png"
@@ -81,8 +83,8 @@ var createScene = function () {
    var skybox = setUpSky(scene);
 
    var props = new Props(scene);
-   props.placeTrees();
-   props.placeRocks();
+   // props.placeTrees();
+   // props.placeRocks();
 
    // our Background theme
    music = new BABYLON.Sound(
@@ -92,7 +94,7 @@ var createScene = function () {
 
    // attributes that take place when in game PLAY mode.
    if (SETTINGS.game) {
-      camera.ellipsoid = new BABYLON.Vector3(.5, 5, .5);
+      camera.ellipsoid = new BABYLON.Vector3(.5, 3, .5);
       scene.collisionsEnabled = true;
       camera.applyGravity = true;
       camera.checkCollisions = true;

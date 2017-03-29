@@ -12,7 +12,7 @@ Ground.prototype = {
       var ground = BABYLON.Mesh.CreateGroundFromHeightMap(
          name, heightMap, 1000, 1000, 50, 0, 30, this.scene, false,
          function () {
-            ground.setPhysicsState(BABYLON.PhysicsEngine.HeightmapImpostor, { mass: 0 });
+            ground.setPhysicsState(BABYLON.PhysicsEngine.HeightmapImpostor, { mass: 0, friction: 100});
             ground.position.x = position.x;
             ground.position.y = position.y - 10;
             ground.position.z = position.z;
