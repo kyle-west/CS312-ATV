@@ -22,7 +22,7 @@ function createPlayer(scene,camera) {
 }
 
 function lock_camera() {
-   camera.position.z = player.position.z - 15;
+   camera.position.z = player.position.z - 20;
    camera.position.x = player.position.x;
    camera.position.y = player.position.y + 5;
    player.lockedTarget = camera;

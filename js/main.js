@@ -15,11 +15,13 @@ var createScene = function () {
    gui.closed = true; // closed by default
    var debF = false;
    // parameters to be used in GUI
+   var particleBox = createParticleSystem(scene);
+   var wflag = false;
    params = {
       numParticles: 500,
       NSwind: 0,
       WEwind: 0,
-
+      weather: function(){particleBox = createParticleSystem(scene, wflag); wflag = !wflag},
       sound: true,
 
       // functions render as buttons
@@ -30,7 +32,6 @@ var createScene = function () {
       // rain: function () {restartEngine("rain");},
       //  condition: "weather"
    };
-   var particleBox = createParticleSystem(scene);
    scene.debugLayer.hide()
    //  worldWeather = "snow";
    // add the params to the gui
@@ -38,7 +39,7 @@ var createScene = function () {
 
    // this is our mute button
 
-   gui.add(params, "snow").name("Snow");
+   gui.add(params, "weather").name("Weather");
    gui.add(params, "debug").name("Debug");
    gui.add(params, "sound").name("Sound").onChange(function() {
      if (SETTINGS.sound) {
@@ -76,6 +77,7 @@ var createScene = function () {
 
    // createATV(scene,atv,camera);
    createPlayer(scene,camera);
+  // createCar(scene);
 
    var ground = new Ground(scene);
    ground.heightMaps = [
@@ -115,7 +117,10 @@ var scene = createScene();
 engine.runRenderLoop(function () {
    scene.render();
    particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
-   lock_camera();
+
+   if (SETTINGS.game) {
+      lock_camera();
+   }
 });
 
 // Resize
