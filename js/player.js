@@ -37,7 +37,7 @@ const MIN_SPEED = 0;
 const ROT_MAX_SPEED = 5;
 const ROT_MIN_SPEED = 0;
 var speed = MIN_SPEED;
-var rot_speed = 0;
+var rot = 0;
 
 function key_down(evt) {
    switch (evt.keyCode) {
@@ -45,8 +45,10 @@ function key_down(evt) {
          // player.position.x += Math.sin(player.rotation.y)*100;
          // player.position.z += Math.cos(player.rotation.y)*100;
          var vel = player.physicsImpostor.getLinearVelocity();
+         vel.x = Math.sin(rot) * speed++;
+         vel.z = Math.cos(rot) * speed++;
 
-         player.physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0,vel.y,speed++));
+         player.physicsImpostor.setLinearVelocity(vel);
          if (speed > MAX_SPEED) speed = MAX_SPEED;
          break;
       case 40: // down key
@@ -56,8 +58,10 @@ function key_down(evt) {
          if (speed < MIN_SPEED) speed = MIN_SPEED;
          break;
       case 37: // left key
+         rot++;
          break;
       case 39: // right key
+         rot--;
          break;
       // ----------------------------
       case 13: // enter key
