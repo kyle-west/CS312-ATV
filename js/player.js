@@ -1,5 +1,5 @@
 var player;
-
+var rotation = 0.0;
 function createPlayer(scene,camera) {
    player = BABYLON.Mesh.CreateSphere('player', 16, 2, scene);
    player.position.y = 5;
@@ -22,8 +22,8 @@ function createPlayer(scene,camera) {
 }
 
 function lock_camera() {
-   camera.position.z = player.position.z - 20;
-   camera.position.x = player.position.x;
+   camera.position.z = player.position.z + (Math.cos(rotation) *20);
+   camera.position.x = player.position.x + (Math.sin(rotation) *20);
    camera.position.y = player.position.y + 5;
    player.lockedTarget = camera;
 
@@ -56,8 +56,10 @@ function key_down(evt) {
          if (speed < MIN_SPEED) speed = MIN_SPEED;
          break;
       case 37: // left key
+         rotation -= .1;
          break;
       case 39: // right key
+         rotation += .1;
          break;
       // ----------------------------
       case 13: // enter key
