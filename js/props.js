@@ -20,9 +20,10 @@ Props.prototype = {
             treeClone.rotation.y = random(1,360);
             // fixHeight(treeClone);
             trees.push(treeClone);
+            $register();
          }
          this.trees = trees;
-         console.info("Trees loaded: " + this.trees.length);
+         console.log("Trees loaded: " + this.trees.length);
       });
    },
 
@@ -50,9 +51,10 @@ Props.prototype = {
             // console.info("Rock: "+i+ " <"+rockClone.position.x+","+rockClone.position.z+">" );
             // fixHeight(rockClone);
             rocks.push(rockClone);
+            $register();
          }
          this.rocks = rocks;
-         console.info("Rocks loaded: " + this.rocks.length);
+         console.log("Rocks loaded: " + this.rocks.length);
       });
    }
 };

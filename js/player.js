@@ -44,13 +44,16 @@ var speed = MIN_SPEED;
 
 function key_down_fb(evt) {
    switch (evt.keyCode) {
+      case 87: // W key
       case 38: // up key
          if (speed < MAX_SPEED)
             speed += SPEED_INC;
          break;
+      case 83: // S key
       case 40: // down key
          if (speed > MIN_SPEED)
-            speed -= SPEED_INC;
+            speed -= SPEED_INC*3;
+         else speed = MIN_SPEED;
          break;
    }
    update_velocity();
@@ -58,9 +61,11 @@ function key_down_fb(evt) {
 
 function key_down_lr(evt) {
    switch (evt.keyCode) {
+      case 65: // A key
       case 37: // left key
          rotation -= ROT_INC;
          break;
+      case 68: // D key
       case 39: // right key
          rotation += ROT_INC;
          break;

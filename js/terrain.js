@@ -16,6 +16,7 @@ Ground.prototype = {
             ground.position.x = position.x;
             ground.position.y = position.y - 10;
             ground.position.z = position.z;
+            $register();
          });
       ground.material = material;
       ground.checkCollisions = true;
@@ -60,6 +61,7 @@ Ground.prototype = {
             );
          }
       }
+      console.log("Ground loaded.");
    },
 
    /************************************************************

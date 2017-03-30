@@ -4,6 +4,11 @@ var params, particleSystem, detail, music;
 var camera;
 var atv;
 var createScene = function () {
+   engine.loadingUIText = "<div class = 'msg'>"+
+      "Welcome to the All-West ATV Experience.<br/><br/>"+
+      "Use <img src = 'assets/images/WASD.png'/> "+
+      "or the arrow keys to navigate.</div>";
+   engine.displayLoadingUI();
    // This creates a basic Babylon Scene object (non-mesh)
    var scene = new BABYLON.Scene(engine);
    // scene.debugLayer.show();
@@ -18,6 +23,9 @@ var createScene = function () {
    var particleBox = createParticleSystem(scene);
    var wflag = false;
    params = {
+      instructions: function(){
+         alert("Use WASD or the arrow keys to navigate.");
+      },
       numParticles: 500,
       NSwind: 0,
       WEwind: 0,
@@ -39,6 +47,7 @@ var createScene = function () {
 
    // this is our mute button
 
+   gui.add(params, "instructions").name("Instructions");
    gui.add(params, "weather").name("Weather");
    gui.add(params, "debug").name("Debug");
    gui.add(params, "sound").name("Sound").onChange(function() {
@@ -81,14 +90,15 @@ var createScene = function () {
 
    var ground = new Ground(scene);
    ground.heightMaps = [
-      "assets/heightmaps/terrain0.png"
+      "assets/heightmaps/terrain0.png",
+      "assets/heightmaps/terrain1.png"
    ];
    ground.setup();
    var skybox = setUpSky(scene);
 
    var props = new Props(scene);
-   // props.placeTrees();
-   // props.placeRocks();
+   props.placeTrees();
+   props.placeRocks();
 
    // our Background theme
    music = new BABYLON.Sound(
@@ -114,6 +124,7 @@ var createScene = function () {
 };
 
 var scene = createScene();
+
 engine.runRenderLoop(function () {
    scene.render();
    particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);

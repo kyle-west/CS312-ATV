@@ -6,21 +6,10 @@ canvas {
    height: 100%;
 }
 
-.hide {
-   display: none;
+div.msg {
+   font-size: 20pt;
 }
 
-.show {
-   display: inline;
-}
-
-p.port {
-   text-align: center;
-   margin-top: 50%;
-   color: blue;
-   font-family: "Consolas";
-}
-
-div.fullscreen {
-   background-color: black;
+div.msg img {
+   width: 60px;
 }
