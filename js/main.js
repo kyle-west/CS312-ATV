@@ -1,6 +1,6 @@
 var canvas = document.getElementById("renderCanvas");
 var engine = new BABYLON.Engine(canvas, true);
-var params, particleSystem, detail, music;
+var params, particleSystem, detail, music, particleBox;
 var camera;
 var atv;
 var createScene = function () {
@@ -20,8 +20,7 @@ var createScene = function () {
    gui.closed = true; // closed by default
    var debF = false;
    // parameters to be used in GUI
-   var particleBox = createParticleSystem(scene);
-   var wflag = false;
+   var wflag = true;
    params = {
       instructions: function(){
          alert("Use WASD or the arrow keys to navigate.");
@@ -40,6 +39,7 @@ var createScene = function () {
       // rain: function () {restartEngine("rain");},
       //  condition: "weather"
    };
+   particleBox = createParticleSystem(scene);
    scene.debugLayer.hide()
    //  worldWeather = "snow";
    // add the params to the gui
@@ -127,14 +127,26 @@ var scene = createScene();
 
 engine.runRenderLoop(function () {
    scene.render();
-   particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
+   adjustObj();
 
-   if (SETTINGS.game) {
-      lock_camera();
-   }
 });
 
 // Resize
 window.addEventListener("resize", function () {
    engine.resize();
 });
+
+function adjustObj() {
+  particleSystem.gravity = new BABYLON.Vector3(params.WEwind,
+     -9.81, params.NSwind);
+
+  if (SETTINGS.game) {
+     lock_camera();
+  }
+  if (player) {
+    var px = player.position.x;
+    var pz = player.position.z;
+  }
+  else {px = pz = 0;}
+ setBox(px, pz);
+}

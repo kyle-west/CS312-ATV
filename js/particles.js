@@ -1,4 +1,4 @@
-function createParticleSystem (scene, system = true) {
+function createParticleSystem (scene, system = false) {
   // where particles originate from.
   pBoxSpawn = BABYLON.Mesh.CreateBox("pBoxSpawn", 1.0, scene);
   pBoxSpawn.isVisible = false;
@@ -12,15 +12,13 @@ function createParticleSystem (scene, system = true) {
     particleSystem.particleTexture = new BABYLON.Texture("assets/textures/snowflake.png", scene);
 
     // change color of particles & alpha challenge
-    // particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
     particleSystem.textureMask = new BABYLON.Color4(0, 0, 0, 0);
 
     // Where the particles comes from
     particleSystem.emitter = pBoxSpawn; // the starting object, the emitter
 
     var size = 400; // orginally 200
-    particleSystem.minEmitBox = new BABYLON.Vector3(-size, 0, -size); // Starting all From
-    particleSystem.maxEmitBox = new BABYLON.Vector3(size, 100, size); // To...
+    setBox();
 
     // Colors of all particles (splited in 2 + specific color before dispose)
     // particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0); // combine for final color
@@ -37,14 +35,6 @@ function createParticleSystem (scene, system = true) {
 
     particleSystem.emitRate = 6000;// originally 2000;
 
-    // particleSystem.manualEmitCount = 300; // if you want to emit particles in bursts
-
-    // “BLENDMODE_ONEONE” (default choice: source color is added to the destination color without
-    //  alpha affecting the result), and “BLENDMODE_STANDARD” (to blend current color and particle
-    // color using particle’s alpha).
-
-    // particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_STANDARD;
-
     //Set the gravity/wind of all particles
     particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
 
@@ -54,7 +44,6 @@ function createParticleSystem (scene, system = true) {
 
     particleSystem.start();
     console.info("Particle System started");
-    // particleSystem.stop();
     return pBoxSpawn;
   }
 else {
@@ -72,8 +61,7 @@ else {
   particleSystem.emitter = pBoxSpawn; // the starting object, the emitter
 
   var size = 400; // orginally 200
-  particleSystem.minEmitBox = new BABYLON.Vector3(-size, 0, -size); // Starting all From
-  particleSystem.maxEmitBox = new BABYLON.Vector3(size, 100, size); // To...
+  setBox();
 
   // Colors of all particles (splited in 2 + specific color before dispose)
   particleSystem.color1 = new BABYLON.Color4(0, 0.5,0, 1.0); // combine for final color
@@ -90,16 +78,6 @@ else {
 
   particleSystem.emitRate = 6000;// originally 2000;
 
-  // particleSystem.manualEmitCount = 300; // if you want to emit particles in bursts
-
-  // “BLENDMODE_ONEONE” (default choice: source color is added to the destination color without
-  //  alpha affecting the result), and “BLENDMODE_STANDARD” (to blend current color and particle
-  // color using particle’s alpha).
-
-  // particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_STANDARD;
-
-  //Set the gravity/wind of all particles
-  // particleSystem.gravity = new BABYLON.Vector3(params.WEwind, -9.81, params.NSwind);
   particleSystem.gravity = new BABYLON.Vector3(0, 20, 0);
 
   // give particles random direction at spawn
@@ -114,4 +92,14 @@ else {
   // particleSystem.stop();
   return pBoxSpawn;
 }
+}
+
+function setBox (px, pz) {
+
+
+  var size = 400; // orginally 200
+  particleSystem.minEmitBox = new BABYLON.Vector3(px - size,   0,
+    pz - size); // Starting all From
+  particleSystem.maxEmitBox = new BABYLON.Vector3(px + size, 100,
+    pz + size); // To...
 }
