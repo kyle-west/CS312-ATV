@@ -1,5 +1,5 @@
 var player;
-
+var rotation = 0.0;
 function createPlayer(scene,camera) {
    player = BABYLON.Mesh.CreateSphere('player', 16, 2, scene);
    player.position.y = 5;
@@ -17,13 +17,15 @@ function createPlayer(scene,camera) {
       camera.radius = 30; // how far from the object to follow
       camera.heightOffset = 8;
       camera.lockedTarget = player;
-      document.addEventListener("keydown", key_down, false);
+      document.addEventListener("keydown", key_down_fb, false);
+      document.addEventListener("keydown", key_down_lr, false);
+      document.addEventListener("keydown", key_down_special, false);
    }
 }
 
 function lock_camera() {
-   camera.position.z = player.position.z - 20;
-   camera.position.x = player.position.x;
+   camera.position.z = player.position.z + (Math.cos(rotation) * -20);
+   camera.position.x = player.position.x + (Math.sin(rotation) * -20);
    camera.position.y = player.position.y + 5;
    player.lockedTarget = camera;
 
@@ -33,42 +35,53 @@ function lock_camera() {
 }
 
 const MAX_SPEED = 50;
+const SPEED_INC = .5;
+const ROT_INC = .05;
 const MIN_SPEED = 0;
 const ROT_MAX_SPEED = 5;
 const ROT_MIN_SPEED = 0;
 var speed = MIN_SPEED;
-var rot = 0;
 
-function key_down(evt) {
+function key_down_fb(evt) {
    switch (evt.keyCode) {
       case 38: // up key
-         // player.position.x += Math.sin(player.rotation.y)*100;
-         // player.position.z += Math.cos(player.rotation.y)*100;
-         var vel = player.physicsImpostor.getLinearVelocity();
-         vel.x = Math.sin(rot) * speed++;
-         vel.z = Math.cos(rot) * speed++;
-
-         player.physicsImpostor.setLinearVelocity(vel);
-         if (speed > MAX_SPEED) speed = MAX_SPEED;
+         if (speed < MAX_SPEED)
+            speed += SPEED_INC;
          break;
       case 40: // down key
-         // player.physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0,0,-speed));
-         // player.position.z -= speed;
-         player.physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0,0,speed--));
-         if (speed < MIN_SPEED) speed = MIN_SPEED;
+         if (speed > MIN_SPEED)
+            speed -= SPEED_INC;
          break;
+   }
+   update_velocity();
+}
+
+function key_down_lr(evt) {
+   switch (evt.keyCode) {
       case 37: // left key
-         rot++;
+         rotation -= ROT_INC;
          break;
       case 39: // right key
-         rot--;
+         rotation += ROT_INC;
          break;
-      // ----------------------------
+   }
+   update_velocity();
+}
+
+function key_down_special(evt) {
+   switch (evt.keyCode) {
       case 13: // enter key
          break;
       case 32: // space key
          break;
    }
+}
+
+function update_velocity() {
+   var vel = player.physicsImpostor.getLinearVelocity();
+   vel.x = Math.sin(rotation) * speed;
+   vel.z = Math.cos(rotation) * speed;
+   player.physicsImpostor.setLinearVelocity(vel);
 }
 
 function key_up(evt) {
