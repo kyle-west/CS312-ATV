@@ -1,1 +1,15 @@
-Tags: 
+* Fine Tuning
+** Kyle
+   - [ ] Additional Heightmaps
+   - [ ] Adjust player controls (faster breaks etc)
+   - [ ] Add WASD keys for controls
+   - [ ] 
+
+** Jacob
+   - [ ] Additional Heightmaps
+   - [ ] Adjust emitter box to follow player
+   - [ ]
+
+** Additional 
+   - [ ] Control instructions (text interface)
+   - [ ]
