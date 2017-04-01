@@ -34,7 +34,7 @@ var createScene = function () {
       NSwind: 0,
       WEwind: 0,
       weather: function(){particleBox = createParticleSystem(scene, wflag); wflag = !wflag},
-      sound: true,
+      music: true,
 
       // functions render as buttons
       snow: function () {},
@@ -45,7 +45,7 @@ var createScene = function () {
    gui.add(params, "instructions").name("Instructions");
    gui.add(params, "weather").name("Weather");
    gui.add(params, "debug").name("Debug");
-   gui.add(params, "sound").name("Sound").onChange(function() {
+   gui.add(params, "music").name("Music").onChange(function() {
      if (SETTINGS.sound) {
        SETTINGS.sound = OPTIONS.sound.OFF;
        music.stop();

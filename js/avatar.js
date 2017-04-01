@@ -25,6 +25,26 @@ function Avatar(scene, camera) {
    );
    this.initializeControler();
    this.initializeATVMeshes();
+
+   // Engine sounds and related code adapted from:
+   // http://cdn.babylonjs.com/wwwbabylonjs/Scenes/minority-race/
+   this.enginesound = new BABYLON.Sound(
+      "Engine", "assets/sounds/engine.wav",
+      this.scene, null,
+      {
+         volume: 0.4,
+         loop: true,
+         autoplay: true,
+         spatialSound: true,
+         distanceModel: "exponential",
+         refDistance: 20,
+         rolloffFactor: 2
+      }
+   );
+   this.enginesound.setPlaybackRate(0.2);
+   this.enginesound.attachToMesh(this.physics_imposter);
+   this.enginesound.play();
+
    this.registerControls();
 }
 
@@ -91,19 +111,24 @@ Avatar.prototype = {
 
    registerControls: function () {
       var that = this; // resolve scope issue
+
+      // UP DOWN keys pressed
       document.addEventListener("keydown", function (evt) {
          switch (evt.keyCode) {
             case 87: // W key
             case 38: // up key
+               this.slowengine = false;
                if (that.speed < that.MAX_SPEED)
                   that.speed += that.SPEED_INC;
 
                that.VI_ROT_X -= that.VI_ROT_INC;
                if (that.VI_ROT_X < -that.VI_ROT_MAX_X)
                   that.VI_ROT_X = -that.VI_ROT_MAX_X;
+
                break;
             case 83: // S key
             case 40: // down key
+               this.slowengine = false;
                if (that.speed > that.MIN_SPEED)
                   that.speed -= that.SPEED_INC*3;
                else that.speed = that.MIN_SPEED;
@@ -116,6 +141,7 @@ Avatar.prototype = {
          that.update_velocity();
       }, false);
 
+      // LEFT RIGHT keys pressed
       document.addEventListener("keydown", function (evt) {
          switch (evt.keyCode) {
             case 65: // A key
@@ -149,6 +175,7 @@ Avatar.prototype = {
          switch (evt.keyCode) {
             case 87: // W key
             case 38: // up key
+               that.slowengine = true;
             case 83: // S key
             case 40: // down key
                that.VI_ROT_X = 0;
@@ -169,6 +196,8 @@ Avatar.prototype = {
    },
 
    animate: function () {
+      this.apply_inertia();
+
       this.camera.position.z = this.physics_imposter.position.z + (Math.cos(this.rotation) * -20);
       this.camera.position.x = this.physics_imposter.position.x + (Math.sin(this.rotation) * -20);
       this.camera.position.y = this.physics_imposter.position.y + 5;
@@ -179,5 +208,19 @@ Avatar.prototype = {
 
       this.visual_imposter.rotation.y = this.rotation + this.VI_ROT_Y;
       this.visual_imposter.rotation.x = this.VI_ROT_X;
-   }
+
+      if (this.slowengine) {
+         this.speed -= this.SPEED_INC/2;
+         if (this.speed <= this.MIN_SPEED) {
+            this.speed = this.MIN_SPEED;
+            this.slowengine = false;
+         }
+      }
+
+      this.enginesound.setPlaybackRate(
+         0.2 + 0.5 * (this.speed / this.MAX_SPEED)
+      );
+   },
+
+   apply_inertia: function () {}
 };
