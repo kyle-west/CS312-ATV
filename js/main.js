@@ -84,8 +84,6 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
-   createPlayer(scene,camera);
-   createATV(scene,atv,camera);
   // createCar(scene);
 
    var ground = new Ground(scene);
@@ -95,6 +93,9 @@ var createScene = function () {
    ];
    ground.setup();
    var skybox = setUpSky(scene);
+   
+   createPlayer(scene,camera);
+   createATV(scene,atv,camera);
 
    var props = new Props(scene);
    props.placeTrees();
@@ -144,7 +145,7 @@ function adjustObj() {
 
    if (SETTINGS.game) {
       lock_camera();
-      atv_visual_imposter.rotation.y = rotation;
+      animate_atv();
    }
 
    if (player) {

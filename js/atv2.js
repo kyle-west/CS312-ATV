@@ -31,6 +31,10 @@ function createATV(scene,atv,camera) {
 
       if (SETTINGS.game) {
          atv_visual_imposter.isVisible = false;
+         document.addEventListener("keydown", key_down_atv_lr, false);
+         document.addEventListener("keydown", key_down_atv_fb, false);
+         document.addEventListener("keyup", key_up_atv_lr, false);
+         document.addEventListener("keyup", key_up_atv_fb, false);
       }
 
    });
@@ -41,11 +45,86 @@ function createATV(scene,atv,camera) {
             atv_visual_imposter.position.z = player.position.z;
             atv_visual_imposter.position.x = player.position.x;
             atv_visual_imposter.position.y = player.position.y;
-            // atv_visual_imposter.rotation.y = rotation;
-
          }
       }
    });
 
    console.log("ATV created");
+}
+
+
+/////////////////////////////////////////////////////////////
+//      ATV ANIMATION HANDLING
+/////////////////////////////////////////////////////////////
+
+var VI_ROT_X = 0;
+var VI_ROT_Y = 0;
+const VI_ROT_INC = 0.01;
+const VI_ROT_MAX_Y = .15;
+const VI_ROT_MAX_X = .06;
+function animate_atv() {
+   atv_visual_imposter.rotation.y = rotation + VI_ROT_Y;
+   atv_visual_imposter.rotation.x = VI_ROT_X;
+}
+
+function key_down_atv_lr(evt) {
+   switch (evt.keyCode) {
+      case 65: // A key
+      case 37: // left key
+         VI_ROT_Y -= VI_ROT_INC;
+         if (VI_ROT_Y < -VI_ROT_MAX_Y) VI_ROT_Y = -VI_ROT_MAX_Y;
+         break;
+      case 68: // D key
+      case 39: // right key
+         // VI_ROT = VI_ROT_MAX;
+         VI_ROT_Y += VI_ROT_INC;
+         if (VI_ROT_Y > VI_ROT_MAX_Y) VI_ROT_Y = VI_ROT_MAX_Y;
+         break;
+   }
+}
+
+function key_up_atv_lr(evt) {
+   switch (evt.keyCode) {
+      case 65: // A key
+      case 37: // left key
+      case 68: // D key
+      case 39: // right key
+         VI_ROT_Y = 0;
+         break;
+   }
+}
+
+function key_down_atv_fb(evt) {
+   switch (evt.keyCode) {
+      case 87: // W key
+      case 38: // up key
+         VI_ROT_X -= VI_ROT_INC;
+         if (VI_ROT_X < -VI_ROT_MAX_X) VI_ROT_X = -VI_ROT_MAX_X;
+         break;
+      case 83: // S key
+      case 40: // down key
+         // VI_ROT = VI_ROT_MAX;
+         VI_ROT_X += VI_ROT_INC;
+         if (VI_ROT_X > VI_ROT_MAX_X) VI_ROT_X = VI_ROT_MAX_X;
+         break;
+   }
+}
+
+function key_up_atv_fb(evt) {
+   switch (evt.keyCode) {
+      case 87: // W key
+      case 38: // up key
+         VI_ROT_X += VI_ROT_INC;
+         if (VI_ROT_X > 0) VI_ROT_X = 0;
+         break;
+      case 83: // S key
+      case 40: // down key
+         VI_ROT_X -= VI_ROT_INC;
+         if (VI_ROT_X < 0) VI_ROT_X = 0;
+         break;
+   }
+}
+
+function apply_rotational_inertia() {
+
 }

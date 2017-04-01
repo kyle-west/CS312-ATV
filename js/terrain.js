@@ -2,6 +2,8 @@
 * This object sets up our ground meshes. These are static
 * and loaded from height maps
 **********************************************************/
+ground_meshes = [];
+
 Ground.prototype = {
    constructor: Ground,
 
@@ -20,6 +22,7 @@ Ground.prototype = {
          });
       ground.material = material;
       ground.checkCollisions = true;
+      ground_meshes.push(ground);
       if (this.log) console.log(ground.name);
       return ground;
    },
@@ -44,6 +47,7 @@ Ground.prototype = {
       this.ground0.material = this.flat;
       this.ground0.physicsImpostor = new BABYLON.PhysicsImpostor(this.ground0, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 0.9 }, this.scene);
       this.ground0.checkCollisions = true;
+      ground_meshes.push(this.ground0);
       if (this.log) console.log(ground0.name);
 
       // TODO: change to : "...terrain"+(i+j)+".png",
