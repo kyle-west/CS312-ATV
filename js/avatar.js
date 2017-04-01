@@ -80,6 +80,9 @@ Avatar.prototype = {
          function(newMeshes, particleSystems, skeletons) {
             var it = that; // FURTHER scope issues;
 
+            var wheel_mat = new BABYLON.StandardMaterial("", it.scene);
+            wheel_mat.diffuseTexture = new BABYLON.Texture("assets/textures/mud.png", it.scene);
+
             newMeshes[3].position.y = 1.5;
             it.atv = newMeshes[3]; //fl 0 fr 1 br 2 bl 4 body 3
             fl = newMeshes[0];
@@ -91,8 +94,16 @@ Avatar.prototype = {
             br.parent = it.atv;
             bl.parent = it.atv;
 
+            fl.material = wheel_mat;
+            fr.material = wheel_mat;
+            br.material = wheel_mat;
+            bl.material = wheel_mat;
+
             it.atv.parent = it.visual_imposter;
             it.atv.position.y -= 2;
+
+            it.atv.material = new BABYLON.StandardMaterial("", it.scene);
+            it.atv.material.diffuseTexture = new BABYLON.Texture("assets/textures/mud.png", it.scene);
 
             if (SETTINGS.game) {
                it.visual_imposter.isVisible = false;
