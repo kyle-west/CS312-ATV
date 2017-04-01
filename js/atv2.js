@@ -115,12 +115,12 @@ function key_up_atv_fb(evt) {
       case 87: // W key
       case 38: // up key
          VI_ROT_X += VI_ROT_INC;
-         if (VI_ROT_X > 0) VI_ROT_X = 0;
+         if (VI_ROT_X >= 0) VI_ROT_X = 0;
          break;
       case 83: // S key
       case 40: // down key
          VI_ROT_X -= VI_ROT_INC;
-         if (VI_ROT_X < 0) VI_ROT_X = 0;
+         if (VI_ROT_X <= 0) VI_ROT_X = 0;
          break;
    }
 }
