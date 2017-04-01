@@ -1,6 +1,10 @@
 var wheels_imp = [];
-
+var atv_visual_imposter;
 function createATV(scene,atv,camera) {
+   // imported meshes are dumb and can't follow a constant rotation
+   // this visual imposter alows us to control rotation of the mesh
+   atv_visual_imposter = BABYLON.Mesh.CreateBox("visual_imposter", 2.0, scene);
+
    BABYLON.SceneLoader.ImportMesh("","assets/mesh/", "atv-complete-test.babylon", scene,
    function(newMeshes, particleSystems, skeletons) {
       for (var i = 0; i < newMeshes.length; i ++) {
@@ -22,20 +26,23 @@ function createATV(scene,atv,camera) {
       fr.position.y += pos;
       fl.position.y += pos;
 
-      // if (SETTINGS.game) {
-      //    atv.parent = camera;
-      //    atv.position = new BABYLON.Vector3(0,0,0);
-      //    atv.position.y += -1.7;
-      //    atv.position.z += .2;
-      // }
+      atv.parent = atv_visual_imposter;
+      atv.position.y -= 2;
+
+      if (SETTINGS.game) {
+         atv_visual_imposter.isVisible = false;
+      }
+
    });
 
    scene.registerBeforeRender(function () {
       if (scene.isReady() && atv) {
-         if (SETTINGS.game) {
-            // atv.position.y = camera.position.y - 1.7;
-            // atv.position.x = camera.position.x;
-            // atv.position.z = camera.position.z + .2;
+         if (player) {
+            atv_visual_imposter.position.z = player.position.z;
+            atv_visual_imposter.position.x = player.position.x;
+            atv_visual_imposter.position.y = player.position.y;
+            // atv_visual_imposter.rotation.y = rotation;
+
          }
       }
    });

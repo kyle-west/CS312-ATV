@@ -84,8 +84,8 @@ var createScene = function () {
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
 
-   // createATV(scene,atv,camera);
    createPlayer(scene,camera);
+   createATV(scene,atv,camera);
   // createCar(scene);
 
    var ground = new Ground(scene);
@@ -137,16 +137,20 @@ window.addEventListener("resize", function () {
 });
 
 function adjustObj() {
-  particleSystem.gravity = new BABYLON.Vector3(params.WEwind,
-     -9.81, params.NSwind);
+   particleSystem.gravity = new BABYLON.Vector3 (
+      params.WEwind,
+      -9.81, params.NSwind
+   );
 
-  if (SETTINGS.game) {
-     lock_camera();
-  }
-  if (player) {
-    var px = player.position.x;
-    var pz = player.position.z;
-  }
-  else {px = pz = 0;}
- setBox(px, pz);
+   if (SETTINGS.game) {
+      lock_camera();
+      atv_visual_imposter.rotation.y = rotation;
+   }
+
+   if (player) {
+      var px = player.position.x;
+      var pz = player.position.z;
+   }
+   else {px = pz = 0;}
+   setBox(px, pz);
 }
