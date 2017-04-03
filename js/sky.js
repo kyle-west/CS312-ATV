@@ -1,5 +1,5 @@
 /****************************************************************
-* Skybox
+* Skybox for the scene
 * loads skyBox images named accordingly:
 *    [image name]_nx.jpg --> the LEFT side
 *    [image name]_ny.jpg --> the BOTTOM side
