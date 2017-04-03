@@ -1,5 +1,5 @@
 /*******************************************************************
-* settings.js is the file where we store global flags for the game
+* Settings.js is the file where we store global flags for the game.
 *******************************************************************/
 
 /**************************************************
@@ -9,9 +9,7 @@ const OPTIONS = {
    // Mute or no?
    sound : {
       OFF : false,
-      ON  : true,
-      JUST_ENGINE: 2,
-      JUST_MUSIC : 3
+      ON  : true
    },
 
    // this is our free camera / FP player mode switch
