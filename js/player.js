@@ -20,6 +20,7 @@ function createPlayer(scene,camera) {
       document.addEventListener("keydown", key_down_fb, false);
       document.addEventListener("keydown", key_down_lr, false);
       document.addEventListener("keydown", key_down_special, false);
+      player.isVisible = false;
    }
 }
 
@@ -28,14 +29,10 @@ function lock_camera() {
    camera.position.x = player.position.x + (Math.sin(rotation) * -20);
    camera.position.y = player.position.y + 5;
    player.lockedTarget = camera;
-
-   // atv.position.z = player.position.z;
-   // atv.position.x = player.position.x;
-   // atv.position.y = player.position.y;
 }
 
 const MAX_SPEED = 50;
-const SPEED_INC = .5;
+const SPEED_INC = .75;
 const ROT_INC = .05;
 const MIN_SPEED = 0;
 const ROT_MAX_SPEED = 5;
