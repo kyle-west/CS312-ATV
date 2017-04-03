@@ -17,6 +17,15 @@ var createScene = function () {
    var physicsPlugin = new BABYLON.CannonJSPlugin();
    scene.enablePhysics(gravityVector, physicsPlugin);
 
+   camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 6, -10), scene);
+
+   avatar = new Avatar(scene,camera);
+
+   if (SETTINGS.game) {
+      avatar.registerControls();
+   } else {
+      camera.attachControl(canvas, true); // This attaches the camera to the canvas
+   }
 
    // DAT.GUI //
    gui = new dat.GUI({
@@ -57,11 +66,7 @@ var createScene = function () {
    gui.add(params, "NSwind",-20,20,1).name('NSwind');
    gui.add(params, "WEwind",-20,20,1).name('WEwind');
 
-   particleBox = createParticleSystem(scene);
-
-   camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 6, -10), scene);
-   if (!SETTINGS.game)
-      camera.attachControl(canvas, true); // This attaches the camera to the canvas
+   particleBox = createParticleSystem(scene); 
 
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount
@@ -76,9 +81,8 @@ var createScene = function () {
       "assets/heightmaps/terrain9.png"
    ];
    ground.setup();
-   var skybox = setUpSky(scene);
 
-   avatar = new Avatar(scene,camera);
+   var skybox = setUpSky(scene);
 
    var props = new Props(scene);
    props.placeTrees();
@@ -87,7 +91,7 @@ var createScene = function () {
    // our Background theme
    music = new BABYLON.Sound(
       "Background", "assets/sounds/bg_v1.mp3", scene, null,
-      { loop: true, autoplay: true }
+      { loop: true, autoplay: true, volume: 0.8 }
    );
 
    // attributes that take place when in game PLAY mode.

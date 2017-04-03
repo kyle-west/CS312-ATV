@@ -34,11 +34,6 @@ Props.prototype = {
       function(newMeshes, particleSystems, skeletons) {
          var rock = newMeshes[0];
          rock.scaling = new BABYLON.Vector3(.5,.5,.5);
-         // rock.physicsImpostor = new BABYLON.PhysicsImpostor(
-         //    rock, BABYLON.PhysicsImpostor.SphereImpostor,
-         //    { mass: 0, restitution: 0.01}, scene
-         // );
-         // rock.position.y = 20;
 
          for (var i = 0; i < 500; i++) {
             var rockClone = rock.clone("rock: " + i);
@@ -48,8 +43,6 @@ Props.prototype = {
             rockClone.rotation.y = random(1,360);
             var scale = random(0.1,3);
             rockClone.scaling = new BABYLON.Vector3(scale,scale,scale);
-            // console.info("Rock: "+i+ " <"+rockClone.position.x+","+rockClone.position.z+">" );
-            // fixHeight(rockClone);
             rocks.push(rockClone);
             $register();
          }
@@ -63,8 +56,4 @@ function Props(scene) {
    this.scene = scene;
    this.trees = [];
    this.rocks = [];
-   this.offset = {
-      tree : -3,
-      rock : -1
-   };
 }

@@ -23,6 +23,9 @@ function Avatar(scene, camera) {
    this.visual_imposter = BABYLON.Mesh.CreateBox(
       "visual_imposter", 2.0, this.scene
    );
+
+   $register(); // the visual_imposter
+
    this.initializeControler();
    this.initializeATVMeshes();
 
@@ -44,8 +47,6 @@ function Avatar(scene, camera) {
    this.enginesound.setPlaybackRate(0.2);
    this.enginesound.attachToMesh(this.physics_imposter);
    this.enginesound.play();
-
-   this.registerControls();
 }
 
 Avatar.prototype = {
@@ -61,16 +62,13 @@ Avatar.prototype = {
          this.scene
       );
 
-      var mounds = new BABYLON.StandardMaterial("ground", this.scene);
-      mounds.diffuseTexture = new BABYLON.Texture("assets/textures/snow_mud2.jpg", this.scene);
-      this.physics_imposter.material = mounds;
-
       if (SETTINGS.game) {
          this.camera.radius = 30; // how far from the object to follow
          this.camera.heightOffset = 8;
          this.camera.lockedTarget = this.physics_imposter;
          this.physics_imposter.isVisible = false;
       }
+      $register();
    },
 
    initializeATVMeshes: function () {
@@ -108,7 +106,9 @@ Avatar.prototype = {
             if (SETTINGS.game) {
                it.visual_imposter.isVisible = false;
             }
-            console.log("ATV Mesh Loaded");
+
+            $register(5); // wheels and body
+            console.log("ATV Mesh Loaded.");
          }
       );
    },
@@ -211,7 +211,7 @@ Avatar.prototype = {
 
       this.camera.position.z = this.physics_imposter.position.z + (Math.cos(this.rotation) * -20);
       this.camera.position.x = this.physics_imposter.position.x + (Math.sin(this.rotation) * -20);
-      this.camera.position.y = this.physics_imposter.position.y + 5;
+      this.camera.position.y = this.physics_imposter.position.y + 3;
 
       this.visual_imposter.position.z = this.physics_imposter.position.z;
       this.visual_imposter.position.x = this.physics_imposter.position.x;
