@@ -91,7 +91,11 @@ var createScene = function () {
    var ground = new Ground(scene);
    ground.heightMaps = [
       "assets/heightmaps/terrain0.png",
-      "assets/heightmaps/terrain1.png"
+      "assets/heightmaps/terrain1.png",
+      "assets/heightmaps/terrain6.png",
+      "assets/heightmaps/terrain7.png",
+      "assets/heightmaps/terrain8.png",
+      "assets/heightmaps/terrain9.png"
    ];
    ground.setup();
    var skybox = setUpSky(scene);
