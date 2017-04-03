@@ -57,7 +57,7 @@ Avatar.prototype = {
       this.physics_imposter.position.z = 15;
       this.physics_imposter.physicsImpostor = new BABYLON.PhysicsImpostor(
          this.physics_imposter, BABYLON.PhysicsImpostor.SphereImpostor,
-         { mass: 1, friction: 100, restitution: 0.1 },
+         { mass: 1, friction: 100, restitution: 0.0 },
          this.scene
       );
 
@@ -103,7 +103,7 @@ Avatar.prototype = {
             it.atv.position.y -= 2;
 
             it.atv.material = new BABYLON.StandardMaterial("", it.scene);
-            it.atv.material.diffuseTexture = new BABYLON.Texture("assets/textures/mud.png", it.scene);
+            it.atv.material.diffuseTexture = new BABYLON.Texture("assets/textures/red.png", it.scene);
 
             if (SETTINGS.game) {
                it.visual_imposter.isVisible = false;
