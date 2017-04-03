@@ -9,15 +9,21 @@
 *    [image name]_pz.jpg --> the FRONT side
 ****************************************************************/
 function setUpSky(scene) {
+   // Set up mesh and material
    var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+
+   // configure material to match our needs
    skyboxMaterial.backFaceCulling = false;
-   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("assets/textures/dark/dark", scene);
+   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
+      "assets/textures/dark/dark", scene
+   );
    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-   skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-   skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
    skyboxMaterial.disableLighting = true;
+
+   // assign material and repostion box
    skybox.material = skyboxMaterial;
    skybox.position.y = -100;
+
    return skybox;
 }
