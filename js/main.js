@@ -8,7 +8,8 @@ var createScene = function () {
    engine.loadingUIText = "<div class = 'msg'>"+
       "Welcome to the All-West ATV Experience.<br/><br/>"+
       "Use <img src = 'assets/images/WASD.png'/> "+
-      "or the arrow keys to navigate.</div>";
+      "or the arrow keys to navigate."+
+      "<p id = 'prog'>Loading started...<p></div>";
    engine.displayLoadingUI();
 
    var scene = new BABYLON.Scene(engine);
@@ -66,7 +67,7 @@ var createScene = function () {
    gui.add(params, "NSwind",-20,20,1).name('NSwind');
    gui.add(params, "WEwind",-20,20,1).name('WEwind');
 
-   particleBox = createParticleSystem(scene); 
+   particleBox = createParticleSystem(scene);
 
    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
    light.intensity = 0.7; // Default intensity is 1. Let's dim the light a small amount

@@ -13,3 +13,8 @@ div.msg {
 div.msg img {
    width: 60px;
 }
+
+#prog {
+   font-size: 10pt;
+   font-style: italic;
+}
