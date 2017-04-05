@@ -13,12 +13,12 @@ Props.prototype = {
          var tree = newMeshes[1];
          tree.scaling = new BABYLON.Vector3(.5,.5,.5);
 
+         // randomly place each tree.
          for (var i = 0; i < 100; i++) {
             var treeClone = tree.clone("tree: " + i);
             treeClone.position.x += random(0,3000,true);
             treeClone.position.z += random(0,3000,true);
             treeClone.rotation.y = random(1,360);
-            // fixHeight(treeClone);
             trees.push(treeClone);
             $register();
          }
@@ -35,6 +35,7 @@ Props.prototype = {
          var rock = newMeshes[0];
          rock.scaling = new BABYLON.Vector3(.5,.5,.5);
 
+         // randomly place each rock
          for (var i = 0; i < 500; i++) {
             var rockClone = rock.clone("rock: " + i);
             rockClone.position.x += random(0,3000,true);
@@ -42,6 +43,8 @@ Props.prototype = {
             rockClone.position.y -= random(0,3);
             rockClone.rotation.y = random(1,360);
             var scale = random(0.1,3);
+
+            // randomly scale each rock
             rockClone.scaling = new BABYLON.Vector3(scale,scale,scale);
             rocks.push(rockClone);
             $register();
@@ -51,7 +54,7 @@ Props.prototype = {
       });
    }
 };
-
+ // create props in scene
 function Props(scene) {
    this.scene = scene;
    this.trees = [];
